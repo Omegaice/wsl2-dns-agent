@@ -1,4 +1,5 @@
 use crate::runner::{start_runner, RunReason};
+use crate::task::create_interface_priority_task;
 use crate::tray::Tray;
 use log::LevelFilter;
 use simplelog::WriteLogger;
@@ -20,6 +21,7 @@ use windows::Win32::UI::WindowsAndMessaging::{MessageBoxW, MB_ICONSTOP, MB_OK};
 mod config;
 mod dns;
 mod runner;
+mod task;
 mod tray;
 mod wsl;
 
@@ -65,6 +67,13 @@ fn main() {
 
     // Create tray
     let tray = Tray::new(log_path, tx.clone());
+
+    // Setup Task
+    if config.task.create {
+        if let Some(err) = create_interface_priority_task().err() {
+            log::info!("Unable to create task: {:?}", err);
+        }
+    }
 
     // Apply DNS changes on notifications
     start_runner(config, rx, tray.get_handle());

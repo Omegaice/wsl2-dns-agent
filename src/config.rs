@@ -17,6 +17,9 @@ pub struct Config {
     /// Per distribution settings
     #[serde(default = "default_distributions")]
     distributions: HashMap<String, DistributionSetting>,
+    /// Settings for managing a system task to change interface properties on connect and disconnect
+    #[serde(default)]
+    pub task: TaskSetting,
 }
 
 fn default_distributions() -> HashMap<String, DistributionSetting> {
@@ -47,6 +50,13 @@ pub struct DistributionSetting {
     /// Note this will trigger a restart of the distribution
     #[serde(default = "r#true")]
     pub patch_wsl_conf: bool,
+}
+
+#[derive(Debug, Default, Deserialize, Serialize)]
+pub struct TaskSetting {
+    /// Whether to create the task for the user
+    #[serde(default)]
+    pub create: bool,
 }
 
 pub fn r#true() -> bool {

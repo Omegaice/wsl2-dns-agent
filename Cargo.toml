@@ -26,7 +26,11 @@ features = [
     "Win32_Foundation",
     "Win32_Networking_WinSock",
     "Win32_NetworkManagement_IpHelper",
+    "Win32_Security_Authentication_Identity",
+    "Win32_System_Com",
+    "Win32_System_Ole",
     "Win32_System_LibraryLoader",
+    "Win32_System_TaskScheduler",
     "Win32_UI_WindowsAndMessaging",
     "Win32_UI_Shell",
     "Win32_Graphics_Gdi"
